@@ -4,19 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+        // Engineering color palette
+        engineering: {
+          dark: '#0f0f0f',
+          charcoal: '#1a1a1a',
+          steel: '#2d2d2d',
+          iron: '#404040',
+          silver: '#6b7280',
+          light: '#9ca3af',
         },
-        secondary: {
+        // Red accent colors
+        accent: {
+          red: '#dc2626',
+          'red-dark': '#991b1b',
+          'red-light': '#ef4444',
+        },
+        // Technical greys
+        tech: {
           50: '#f8fafc',
           100: '#f1f5f9',
           200: '#e2e8f0',
@@ -30,26 +34,18 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        'mono': ['Courier New', 'monospace'],
+        'tech': ['Arial', 'Helvetica', 'sans-serif'],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.6s ease-out',
-        'float': 'float 6s ease-in-out infinite',
+      boxShadow: {
+        'engineering': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+        'inset-engineering': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)',
+        'cad': '2px 2px 4px rgba(0, 0, 0, 0.3), inset 1px 1px 2px rgba(255, 255, 255, 0.1)',
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
-        }
+      backgroundImage: {
+        'engineering-grid': 'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+        'tech-gradient': 'linear-gradient(145deg, #374151, #1f2937)',
+        'panel-gradient': 'linear-gradient(145deg, #f3f4f6, #e5e7eb)',
       }
     },
   },
