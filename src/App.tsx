@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Experience } from './components/Experience';
-import { Skills } from './components/Skills';
-import { Projects } from './components/Projects';
-import { Certifications } from './components/Certifications';
-import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { Home } from './pages/Home';
+import { Services } from './pages/Services';
+import { Projects } from './pages/Projects';
+import { About } from './pages/About';
+import { Contact } from './pages/Contact';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('home');
-
   return (
-    <div className="min-h-screen bg-white">
-      <Header activeSection={activeSection} setActiveSection={setActiveSection} />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Certifications />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

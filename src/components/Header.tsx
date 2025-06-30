@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Download } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Download, ArrowRight } from 'lucide-react';
 
-interface HeaderProps {
-  activeSection: string;
-  setActiveSection: (section: string) => void;
-}
-
-export function Header({ activeSection, setActiveSection }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'certifications', label: 'Certifications' },
-    { id: 'contact', label: 'Contact' }
+    { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/about', label: 'About' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   useEffect(() => {
@@ -29,20 +24,10 @@ export function Header({ activeSection, setActiveSection }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(sectionId);
-      setIsMenuOpen(false);
-    }
-  };
-
   const downloadResume = () => {
-    // Create a downloadable resume file
     const resumeContent = `
 OLUFEMI BALOGUN
-Technical Project Manager
+Technical Project Manager & Cloud Solutions Consultant
 Brampton, Ontario | 647-287-2795 | olufemibalogunpm@gmail.com
 LinkedIn: linkedin.com/in/olufemi-balogun-engr
 
@@ -52,9 +37,9 @@ Technical Project Manager with 8+ years of experience leading complex cloud infr
 EXPERIENCE
 Technical Project Manager - Wave Financial (09/2023 - Current)
 • Led end-to-end implementation of cloud-based financial systems
-• Managed cross-functional teams across software development, IT infrastructure, and DevOps
 • Successfully migrated legacy systems to modern cloud architecture, reducing operational costs by 20%
 • Implemented advanced security protocols including MFA and encryption standards
+• Delivered executive-level reporting through Power BI dashboards
 
 Project Manager/Scrum Master - Oxdit Technologies (07/2021 - 08/2023)
 • Spearheaded successful migration of legacy applications to modernized infrastructure
@@ -99,46 +84,51 @@ SKILLS
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
     }`}>
-      <nav className="container-max section-padding">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => scrollToSection('home')}
-              className="text-xl font-bold gradient-text hover:scale-105 transition-transform duration-200"
-            >
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">OB</span>
+            </div>
+            <span className="text-xl font-bold text-secondary-900">
               Olufemi Balogun
-            </button>
-          </div>
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    activeSection === item.id
-                      ? 'text-primary-600 border-b-2 border-primary-600'
-                      : 'text-secondary-700 hover:text-primary-600'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  location.pathname === item.path
+                    ? 'text-primary-600 border-b-2 border-primary-600'
+                    : 'text-secondary-700 hover:text-primary-600'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
 
-          {/* Resume Download Button */}
-          <div className="hidden md:block">
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={downloadResume}
-              className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center space-x-2"
+              className="flex items-center space-x-2 text-secondary-700 hover:text-primary-600 transition-colors duration-200"
             >
               <Download className="w-4 h-4" />
               <span>Resume</span>
             </button>
+            <Link
+              to="/contact"
+              className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center space-x-2"
+            >
+              <span>Get Consultation</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -157,25 +147,36 @@ SKILLS
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white rounded-lg shadow-lg mt-2">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                    activeSection === item.id
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    location.pathname === item.path
                       ? 'text-primary-600 bg-primary-50'
                       : 'text-secondary-700 hover:text-primary-600 hover:bg-secondary-50'
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
-              <button
-                onClick={downloadResume}
-                className="w-full bg-primary-600 text-white px-3 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center space-x-2 mt-4"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Resume</span>
-              </button>
+              <div className="border-t border-gray-200 pt-4 mt-4">
+                <button
+                  onClick={downloadResume}
+                  className="w-full flex items-center justify-center space-x-2 px-3 py-2 text-secondary-700 hover:text-primary-600 transition-colors duration-200"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download Resume</span>
+                </button>
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full bg-primary-600 text-white px-3 py-2 rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center space-x-2 mt-2"
+                >
+                  <span>Get Consultation</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         )}
