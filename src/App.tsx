@@ -1,56 +1,54 @@
 import React, { useState } from 'react';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
-import { PartRequest } from './components/PartRequest';
-import { DrawingTool } from './components/DrawingTool';
-import { Marketplace } from './components/Marketplace';
-import { Messages } from './components/Messages';
-import { Profile } from './components/Profile';
-import { Orders } from './components/Orders';
+import { TimeBoxing } from './components/TimeBoxing';
+import { UrgencyTraining } from './components/UrgencyTraining';
+import { ScheduleManager } from './components/ScheduleManager';
+import { ProgressTracking } from './components/ProgressTracking';
+import { PsychologyTips } from './components/PsychologyTips';
+import { FocusTimer } from './components/FocusTimer';
 
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
-  const [userType, setUserType] = useState<'customer' | 'printer' | 'metallurgist'>('customer');
 
-  // Mock user data
+  // Mock user data - in a real app, this would come from an API/database
   const userData = {
-    name: 'Alex Johnson',
-    type: userType,
-    rating: 4.8,
-    completedOrders: 23,
-    activeOrders: 3,
-    earnings: 1250,
-    location: 'San Francisco, CA'
+    urgencyScore: 72,
+    tasksCompleted: 23,
+    onTimeRate: 85,
+    streak: 5,
+    level: 2,
+    totalFocusTime: 180, // minutes today
+    scheduledTasks: 8,
+    completedTasks: 6
   };
 
   const renderCurrentView = () => {
     switch (currentView) {
       case 'dashboard':
         return <Dashboard currentView={currentView} setCurrentView={setCurrentView} userData={userData} />;
-      case 'request':
-        return <PartRequest setCurrentView={setCurrentView} />;
-      case 'drawing':
-        return <DrawingTool setCurrentView={setCurrentView} />;
-      case 'marketplace':
-        return <Marketplace setCurrentView={setCurrentView} userType={userType} />;
-      case 'messages':
-        return <Messages setCurrentView={setCurrentView} />;
-      case 'orders':
-        return <Orders setCurrentView={setCurrentView} userType={userType} />;
-      case 'profile':
-        return <Profile setCurrentView={setCurrentView} userData={userData} userType={userType} setUserType={setUserType} />;
+      case 'timebox':
+        return <TimeBoxing setCurrentView={setCurrentView} />;
+      case 'urgency':
+        return <UrgencyTraining setCurrentView={setCurrentView} />;
+      case 'schedule':
+        return <ScheduleManager setCurrentView={setCurrentView} />;
+      case 'progress':
+        return <ProgressTracking setCurrentView={setCurrentView} />;
+      case 'psychology':
+        return <PsychologyTips setCurrentView={setCurrentView} />;
+      case 'focus':
+        return <FocusTimer setCurrentView={setCurrentView} />;
       default:
         return <Dashboard currentView={currentView} setCurrentView={setCurrentView} userData={userData} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-engineering-charcoal engineering-grid flex">
-      <Navigation currentView={currentView} setCurrentView={setCurrentView} userType={userType} />
-      <main className="flex-1 p-6">
-        <div className="max-w-7xl mx-auto">
-          {renderCurrentView()}
-        </div>
+    <div className="min-h-screen bg-gray-50 flex">
+      <Navigation currentView={currentView} setCurrentView={setCurrentView} />
+      <main className="flex-1 p-8">
+        {renderCurrentView()}
       </main>
     </div>
   );
