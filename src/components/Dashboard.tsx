@@ -196,15 +196,15 @@ export function Dashboard({ currentView, setCurrentView, userData }: DashboardPr
           </div>
           <div className="space-y-4">
             {recentActivity.map((activity) => (
-              <div key={activity.id} className="flex items-center justify-between p-4 bg-engineering-steel rounded-lg border border-tech-500">
+              <div key={activity.id} className="flex items-center justify-between p-4 bg-white rounded-lg border border-tech-300 shadow-sm">
                 <div className="flex items-center space-x-4">
                   <div className={`w-3 h-3 rounded-full ${
                     activity.status === 'success' ? 'bg-green-500' :
                     activity.status === 'info' ? 'bg-blue-500' : 'bg-yellow-500'
                   }`}></div>
                   <div>
-                    <div className="font-medium text-engineering-dark font-tech">{activity.title}</div>
-                    <div className="text-sm text-tech-600 font-mono">{activity.time}</div>
+                    <div className="font-medium text-gray-900 font-tech">{activity.title}</div>
+                    <div className="text-sm text-gray-600 font-mono">{activity.time}</div>
                   </div>
                 </div>
                 {activity.amount && (
@@ -222,24 +222,24 @@ export function Dashboard({ currentView, setCurrentView, userData }: DashboardPr
             <h3 className="text-xl font-bold text-engineering-dark font-tech">PERFORMANCE METRICS</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-engineering-steel rounded-lg border border-tech-500">
+            <div className="text-center p-4 bg-white rounded-lg border border-tech-300 shadow-sm">
               <div className="text-3xl font-bold text-accent-red font-mono">+15%</div>
-              <div className="text-sm text-tech-600 font-mono">ORDERS/MONTH</div>
-              <div className="mt-2 w-full bg-tech-700 rounded-full h-2">
+              <div className="text-sm text-gray-600 font-mono">ORDERS/MONTH</div>
+              <div className="mt-2 w-full bg-tech-200 rounded-full h-2">
                 <div className="bg-accent-red h-2 rounded-full" style={{ width: '75%' }}></div>
               </div>
             </div>
-            <div className="text-center p-4 bg-engineering-steel rounded-lg border border-tech-500">
+            <div className="text-center p-4 bg-white rounded-lg border border-tech-300 shadow-sm">
               <div className="text-3xl font-bold text-green-500 font-mono">98%</div>
-              <div className="text-sm text-tech-600 font-mono">SUCCESS RATE</div>
-              <div className="mt-2 w-full bg-tech-700 rounded-full h-2">
+              <div className="text-sm text-gray-600 font-mono">SUCCESS RATE</div>
+              <div className="mt-2 w-full bg-tech-200 rounded-full h-2">
                 <div className="bg-green-500 h-2 rounded-full" style={{ width: '98%' }}></div>
               </div>
             </div>
-            <div className="text-center p-4 bg-engineering-steel rounded-lg border border-tech-500">
+            <div className="text-center p-4 bg-white rounded-lg border border-tech-300 shadow-sm">
               <div className="text-3xl font-bold text-blue-500 font-mono">4.8</div>
-              <div className="text-sm text-tech-600 font-mono">AVG RATING</div>
-              <div className="mt-2 w-full bg-tech-700 rounded-full h-2">
+              <div className="text-sm text-gray-600 font-mono">AVG RATING</div>
+              <div className="mt-2 w-full bg-tech-200 rounded-full h-2">
                 <div className="bg-blue-500 h-2 rounded-full" style={{ width: '96%' }}></div>
               </div>
             </div>

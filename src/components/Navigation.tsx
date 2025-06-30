@@ -65,7 +65,7 @@ export function Navigation({ currentView, setCurrentView, userType }: Navigation
         </div>
 
         {/* Navigation Items */}
-        <div className="space-y-2">
+        <div className="space-y-2 mb-8">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -88,8 +88,8 @@ export function Navigation({ currentView, setCurrentView, userType }: Navigation
           })}
         </div>
 
-        {/* User Profile Section */}
-        <div className="absolute bottom-6 left-6 right-6">
+        {/* User Profile Section - Moved down to avoid covering navigation */}
+        <div className="mt-auto">
           <div className="engineering-panel rounded-lg p-4 border-2 border-tech-400">
             <div className="flex items-center space-x-3 mb-3">
               <div className="bg-engineering-steel rounded-full p-3 border-2 border-accent-red">
